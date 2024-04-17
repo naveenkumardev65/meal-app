@@ -16,6 +16,18 @@ const useStyles = makeStyles(theme => ({
     button: {
         color: '#fff !important'
     },
+    content: {
+        paddingLeft: '20px',
+        [theme.breakpoints.down('md')]: {
+            paddingLeft: '0 !important',
+            marginTop: '20px !important'
+        }
+    },
+    title: {
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '1.8rem !important'
+        }
+    },
 }));
 
 export default useStyles;

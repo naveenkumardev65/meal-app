@@ -6,7 +6,10 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         marginTop: '20px',
         padding: '0px 40px',
-        gap: '20px'
+        gap: '20px',
+        [theme.breakpoints.down('sm')]: {
+            padding: '0 !important'
+        }
     },
     cardContainer: {
         height: '179px',
@@ -14,6 +17,7 @@ const useStyles = makeStyles(theme => ({
         width: '200px',
         border: '1px solid #dbd4d4',
         boxShadow: '7px 7px 6px #f1f3f4',
+        borderRadius: '4px',
         transition: 'transform .2s',
         '&:hover': {
             transform: 'scale(1.1)'

@@ -16,6 +16,7 @@ const store = configureStore({
 
 sagaMiddleware.run(rootSagas);
 
-store.subscribe(() => console.log('store', store.getState()));
+// Store watcher
+// store.subscribe(() => console.log('store', store.getState()));
 export default store;
 

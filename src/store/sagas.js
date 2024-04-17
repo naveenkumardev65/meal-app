@@ -23,7 +23,7 @@ import {
     placeOrderError
 } from './actions';
 
-import { v4 as uuidv4 } from 'uuid';
+import { generateAlphanumeric } from '../utils/tools';
 import { toast, Bounce } from 'react-toastify';
 
 function* loadMealCategoriesSaga() {
@@ -77,8 +77,8 @@ function* placeOrderSaga() {
     yield takeLatest(PLACE_ORDER, function* updater({ records }) {
         if (records) {
             try {
-                yield put(placeOrderSuccess(Object.assign({}, { id: uuidv4(), items: records }), 'Order Placed Successfully'));
-                toast.success('Order Placed Successfully', {
+                yield put(placeOrderSuccess(Object.assign({}, { id: generateAlphanumeric(8).toUpperCase(), items: records }), 'Order Placed Successfully'));
+                toast.success('Your Order Placed Successfully', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -86,7 +86,7 @@ function* placeOrderSaga() {
                     pauseOnHover: true,
                     draggable: true,
                     progress: undefined,
-                    theme: "light",
+                    theme: "colored",
                     transition: Bounce,
                 })
             } catch (error) {

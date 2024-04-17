@@ -5,10 +5,13 @@ import { loadMealCategory, addMealToCart, removeMealFromCart } from '../../store
 import selectors from '../../store/selectors';
 import { Grid, Typography } from '@mui/material';
 import Card from '../../components/Card';
+import Spinner from '../../components/Spinner';
+import Styles from './styles';
 
 function MealsCategoryList(props) {
   const { dispatch, records, cart, loading, error, success } = props;
   const params = useParams();
+  const classes = Styles();
   
 
   useEffect(() => {
@@ -27,16 +30,16 @@ function MealsCategoryList(props) {
 
 
   if(loading) {
-    return 'Loading..';
+    return <Spinner />
   }
 
 
   return (
     <Grid container xs={12}>
       <Grid item>
-        <Typography variant='h5' style={{ padding: '0px 40px',  }}>{params && params?.categoryitem && params?.categoryitem?.charAt(0).toUpperCase() + params?.categoryitem.slice(1)}</Typography>
+        <Typography variant='h5' className={classes.title}>{params && params?.categoryitem && params?.categoryitem?.charAt(0).toUpperCase() + params?.categoryitem.slice(1)}</Typography>
       </Grid>
-      <Grid container xs={12} style={{ gap: '25px', paddingLeft: '40px', marginTop: '20px', }} justifyContent="center">
+      <Grid container xs={12} className={classes.categoryContainer} justifyContent="center">
           {records?.map(record => {
             const isCartRecord = cart && cart?.length > 0 ? cart.filter(el => el.idMeal === record?.idMeal) : false;
             let mealRecord = isCartRecord ? Object.assign({}, record, { quantity: isCartRecord && isCartRecord[0]?.quantity }) : record;

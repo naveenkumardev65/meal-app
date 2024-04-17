@@ -5,6 +5,7 @@ import selectors from '../../store/selectors';
 import { Typography, Grid } from '@mui/material';
 import Styles from './styles';
 import { Link } from 'react-router-dom';
+import Spinner from '../../components/Spinner';
 
 function Home(props) {
   const { dispatch, categories, loading, error, success } = props;
@@ -15,7 +16,7 @@ function Home(props) {
   }, []);
 
   if (loading) {
-    return 'Loading...';
+    return <Spinner />
   }
 
   return (

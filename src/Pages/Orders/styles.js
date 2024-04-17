@@ -9,22 +9,15 @@ const useStyles = makeStyles(theme => ({
             padding: '0',
         }
     },
-    cardContainer: {
-        height: '179px',
-        maxHeight: '200px',
-        width: '200px',
-        border: '1px solid #dbd4d4',
-        boxShadow: '7px 7px 6px #f1f3f4',
-    },
     orderContainer: {
         border: '1px solid #dbd4d4',
         boxShadow: '7px 7px 6px #f1f3f4',
-        marginBottom: '50px',
+        marginBottom: '50px !important',
         padding: '20px'
     },
     emptyCart: {
-        display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column !important',
+        alignItems: 'center',
         marginTop: '15%'
     },
     card: {
@@ -33,13 +26,14 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         padding: '10px',
         borderRadius: '2px',
-        marginBottom: '20px',
+        marginBottom: '20px !important',
         gap: '15px',
         cursor: 'pointer',
     },
     img: {
         height: '100%',
-        width: '100%'
+        width: '100%',
+        objectFit: 'cover'
     },
     summaryContainer: {
         border: '1px solid #dbd4d4',

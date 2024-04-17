@@ -1,15 +1,12 @@
-import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import { Grid, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import Styles from './styles';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
 
 export default function CardDetails(props) {
-    const { strMealThumb, strMeal, strInstructions, strTags, strYoutube, strArea, strCategory, idMeal, addToCart, price, quantity, removeFromCart } = props;
-    const navigate = useNavigate();
+    const { strMealThumb, strMeal, strInstructions, strTags, strCategory, idMeal, addToCart, price, quantity, removeFromCart } = props;
     const classes = Styles();
     let tags = strTags && strTags?.length > 0 && strTags?.split(',') || false;
 
@@ -22,15 +19,13 @@ export default function CardDetails(props) {
             <Grid item md={3} xs={12} className={classes.imgContainer}>
                 <img src={strMealThumb} style={{ width: '100%', height: '300px', borderRadius: '8px' }} alt={strMeal} />
             </Grid>
-            <Grid item md={8} xs={12} style={{ paddingLeft: '20px' }}>
-                <Typography variant="h4">
-                    Title: {strMeal}
+            <Grid item md={8} xs={12} className={classes.content}>
+                <Typography variant="h4">{strMeal}</Typography>
+                <Typography style={{ fontSize: '1.5rem', paddingTop: '5px'}}>
+                    <b>Category:</b> {strCategory}
                 </Typography>
-                <Typography variant="h5">
-                    Category: {strCategory}
-                </Typography>
-                <Typography variant="subtitle1">
-                    Instructions: {strInstructions}
+                <Typography variant="subtitle1" style={{ paddingTop: '8px'}}>
+                    <b>Instructions:</b> {strInstructions}
                 </Typography>
                 {tags ? <Stack direction="row" spacing={1}>
                     {tags?.map(e => e && e != '' ? <Chip label={e} color="info" /> : null)}

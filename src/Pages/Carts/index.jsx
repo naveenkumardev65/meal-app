@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { addMealToCart, removeMealFromCart, placeOrder } from '../../store/actions';
 import selectors from '../../store/selectors';
 import { Grid, Typography, Button } from '@mui/material';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import Styles from './styles';
 import { truncateString } from '../../utils/tools';
+import Spinner from '../../components/Spinner';
 
 
-function Cart(props) {
+function Carts(props) {
   const { dispatch, carts } = props;
   const classes = Styles();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const totalAmount = carts && carts.length > 0 ? carts.reduce((acc, el) => {
+    return acc += el?.quantity * el?.price;
+  }, 0) : 0;
 
 
   useEffect(() => {
@@ -31,28 +36,21 @@ function Cart(props) {
     dispatch(removeMealFromCart(record));
   }
 
-  const totalAmount = carts && carts.length > 0 ? carts.reduce((acc, el) => {
-    return acc += el?.quantity * el?.price;
-  }, 0) : 0;
-
   const handlePlaceOrder = () => {
     dispatch(placeOrder(carts));
-  }
-
-
-  if (loading) {
-    return 'Loading...'
   }
 
   if (!carts?.length) {
     return <Grid container xs={12} className={classes.emptyCart}>
       <RemoveShoppingCartIcon style={{ width: '100%', height: '100px' }} />
-      <Typography variant='h4'>Your Cart is Empty</Typography>
+      <Typography variant='h4'>Your shopping cart is empty</Typography>
+      <p>Please add items to your cart.</p>
+      <Link to={{ pathname: '/' }} style={{ color: '#2f2f2f' }}>Continue shopping</Link>
     </Grid>
   }
 
   return (
-    <Grid container xs={12}>
+    loading ? <Spinner /> : <Grid container xs={12}>
       <Grid item>
         <Typography variant='h5' style={{ padding: '0px 40px', }}>Card Items</Typography>
       </Grid>
@@ -89,19 +87,33 @@ function Cart(props) {
           <Grid className={classes.summaryContainer}>
             <Typography variant='h4' className={classes.title}>Summary</Typography>
             <Grid item className={classes.summaryContent}>
-              {carts?.map(record => <Grid style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                <Typography>{record?.strMeal && truncateString(record?.strMeal)}</Typography>
-                <Typography>{record?.quantity} x {record?.price} = {record?.quantity * record?.price} </Typography>
-              </Grid>)}
+              <table width="100%">
+                <tr>
+                  <th>Items</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+                {carts?.map(record => {
+                  return <tr>
+                    <td>{record?.strMeal && truncateString(record?.strMeal)}</td>
+                    <td>{record?.quantity}</td>
+                    <td>{record?.price}</td>
+                    <td>₹{record?.quantity * record?.price}</td>
+                  </tr>
+                })}
+
+              </table>
+
             </Grid>
             <Grid style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Typography variant='h6' style={{ paddingRight: '15px' }}>Total: {totalAmount}</Typography>
+              <Typography variant='h6' style={{ paddingRight: '15px', marginTop: '8px' }}>Total: ₹{totalAmount}</Typography>
             </Grid>
           </Grid>
-          <Button 
-            variant='contained' 
-            fullWidth 
-            color='buttonColor' 
+          <Button
+            variant='contained'
+            fullWidth
+            color='buttonColor'
             className={classes.placeOrderBtn}
             onClick={handlePlaceOrder}
           >
@@ -140,4 +152,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Carts);

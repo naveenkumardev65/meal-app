@@ -5,10 +5,13 @@ import { loadMealDetails, addMealToCart, removeMealFromCart } from '../../store/
 import selectors from '../../store/selectors';
 import { Grid, Typography } from '@mui/material';
 import CardDetails from '../../components/CardDetails';
+import Spinner from '../../components/Spinner';
+import Styles from './styles'
 
 function MealsDetails(props) {
-  const { dispatch, record, loading, cart, error, success } = props;
+  const { dispatch, record, loading, cart } = props;
   const params = useParams();
+  const classes = Styles();
   const isCartRecord = cart && cart?.length > 0 ? cart.filter(el => el.idMeal === record?.idMeal) : false;
   let mealRecord = isCartRecord ? Object.assign({}, record, { quantity: isCartRecord && isCartRecord[0]?.quantity }) : record;
   
@@ -17,7 +20,7 @@ function MealsDetails(props) {
     if(params) {
       dispatch(loadMealDetails(params?.id))
     }
-  }, [params]);
+  }, []);
 
   const addToCart = (value) => {
     dispatch(addMealToCart(value));
@@ -28,17 +31,20 @@ function MealsDetails(props) {
   }
 
   if(loading) {
-    return 'Loading..';
+    return <Spinner />
   }
 
 
   return (
     <Grid container xs={12}>
       <Grid item>
-        <Typography variant="h3" style={{ fontWeight: 'bold'}}>{mealRecord && mealRecord?.strCategory + ' / ' + mealRecord?.strMeal}</Typography>
+        <Typography variant="h4" className={classes.title}>{mealRecord && mealRecord?.strCategory + ' / ' + mealRecord?.strMeal}</Typography>
       </Grid>
       <Grid container xs={12} style={{ marginTop: '20px' }}>
-          {mealRecord ? <CardDetails {...mealRecord} addToCart={addToCart} removeFromCart={removeFromCart}/>: null}
+          {mealRecord ? <CardDetails 
+            {...mealRecord} 
+            addToCart={addToCart} 
+            removeFromCart={removeFromCart} />: null}
       </Grid>
     </Grid>
   )

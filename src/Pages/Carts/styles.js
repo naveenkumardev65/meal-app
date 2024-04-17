@@ -17,8 +17,8 @@ const useStyles = makeStyles(theme => ({
         boxShadow: '7px 7px 6px #f1f3f4',
     },
     emptyCart: {
-        display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column !important',
+        alignItems: 'center',
         marginTop: '15%'
     },
     card: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         padding: '10px',
         borderRadius: '2px',
-        marginBottom: '20px',
+        marginBottom: '20px !important',
         gap: '15px',
         cursor: 'pointer',
         transition: 'transform .2s',
@@ -42,13 +42,12 @@ const useStyles = makeStyles(theme => ({
     summaryContainer: {
         border: '1px solid #dbd4d4',
         boxShadow: '7px 7px 6px #f1f3f4',
-        // padding: '1rem',
         height: '400px',
     },
     summaryContent: {
         height: '280px',
         overflowY: 'auto',
-        padding: '10px',
+        padding: '0 10px 10px 10px',
         borderBottom: '1px solid #e1e1e1',
         "&::-webkit-scrollbar": {
             width: 10,
@@ -68,8 +67,8 @@ const useStyles = makeStyles(theme => ({
         borderBottom: '1px solid #e1e1e1'
     },
     placeOrderBtn: {
-        marginTop: '10px',
-        color: '#fff',
+        marginTop: '10px !important',
+        color: '#fff !important',
         transition: 'transform .2s',
         '&:hover': {
             transform: 'scale(1.01)'
