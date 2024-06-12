@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 function App(props) {
   const cartItems = useSelector(state => state?.mealsReducer?.cart || []);
   const orderItems = useSelector(state => state?.mealsReducer?.orders || []);
+
+  console.log('test code')
   return (
     <>
       <BrowserRouter>
