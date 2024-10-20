@@ -8,6 +8,7 @@ import Orders from "../Pages/Orders";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "../Pages/NotFound";
 import App from "../Pages/App/App";
+import ContactUs from "../Pages/ContactUs";
 
 
 function Router() {
@@ -19,6 +20,7 @@ function Router() {
                 <Route path={'/catogory/:categoryitem'} element={<MealsCategoryList />} />
                 <Route path={'/catogoryDetails/:id'} element={<MealsDetails />} />
                 <Route path={'/orders'} element={<Orders />} />
+                <Route path={'/contactus'} element={<ContactUs />} />
                 <Route path={'*'} element={<NotFound />} />
             </Routes>
         </App>

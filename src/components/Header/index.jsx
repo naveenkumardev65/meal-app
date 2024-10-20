@@ -8,6 +8,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CssBaseline from '@mui/material/CssBaseline'
 import { useNavigate } from 'react-router-dom';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 
 export default function Header({ cartItems, orderItems }) {
@@ -34,6 +35,13 @@ export default function Header({ cartItems, orderItems }) {
                         <IconButton
                             size="large"
                             color="inherit"
+                            onClick={() => navigate('/contactus')}
+                        >
+                            <ContactMailIcon />
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            color="inherit"
                             onClick={() => navigate('/orders')}
                         >
                             
@@ -50,7 +58,6 @@ export default function Header({ cartItems, orderItems }) {
                                 <ShoppingCartIcon />
                             </Badge> : <ShoppingCartIcon />}
                         </IconButton>
-                        
                     </Box>
                 </Toolbar>
             </AppBar>
